@@ -1,0 +1,752 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', monospace;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #e0e0e0;
+  background-color: #0a0a0a;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+#root {
+  width: 100%;
+  max-width: 680px;
+}
+
+/* App layout */
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 1.5rem 0;
+}
+
+.app-header {
+  text-align: center;
+  max-width: 520px;
+}
+
+.app-header h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #888;
+  margin: 0 0 0.25rem;
+}
+
+.app-description {
+  font-size: 0.875rem;
+  color: #666;
+  margin: 0 0 0.5rem;
+  font-weight: 400;
+}
+
+.byline {
+  font-size: 0.75rem;
+  color: #555;
+  margin: 0 0 1.25rem;
+}
+
+.byline a {
+  color: #777;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s;
+}
+
+.byline a:hover {
+  color: #999;
+}
+
+.science-toggle-btn {
+  padding: 0.65rem 1.25rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  border: 1px solid #333;
+  background: #141414;
+  color: #888;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  margin: 1rem 0;
+}
+
+.science-toggle-btn:hover {
+  border-color: #444;
+  color: #999;
+}
+
+/* Science popup */
+.science-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 1000;
+}
+
+.science-modal {
+  background: #141414;
+  border: 1px solid #2a2a2a;
+  max-width: 520px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.science-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #2a2a2a;
+  flex-shrink: 0;
+}
+
+.science-modal-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #888;
+  margin: 0;
+  font-family: inherit;
+}
+
+.science-modal-close {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+  border: none;
+  background: transparent;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.science-modal-close:hover {
+  color: #ccc;
+}
+
+.science-modal .science-copy {
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: #666;
+  font-family: system-ui, -apple-system, sans-serif;
+  text-align: left;
+  padding: 1.25rem;
+  overflow-y: auto;
+  margin: 0;
+  max-height: none;
+}
+
+.science-modal .science-copy h3 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #888;
+  margin: 1rem 0 0.5rem;
+  font-family: inherit;
+}
+
+.science-modal .science-copy h3:first-child {
+  margin-top: 0;
+}
+
+.science-modal .science-copy p {
+  margin: 0 0 0.75rem;
+}
+
+.science-modal .science-copy p:last-child {
+  margin-bottom: 0;
+}
+
+.science-modal .science-copy strong {
+  color: #888;
+}
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Dial section: dials, start/stop, presets — with breathing room */
+.dial-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  width: 100%;
+  margin-bottom: 3rem;
+}
+
+.dial-section .presets {
+  margin-top: 0;
+}
+
+/* Spacing between main blocks */
+.app-main .options-row {
+  margin-bottom: 3rem;
+}
+
+.app-main .session-timer {
+  margin-bottom: 0.5rem;
+}
+
+.dial-row {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Frequency dial */
+.frequency-dial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dial-with-arrows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.dial-arrow {
+  width: 32px;
+  height: 24px;
+  padding: 0;
+  font-size: 0.65rem;
+  line-height: 1;
+  border: 1px solid #2a2a2a;
+  background: #141414;
+  color: #666;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dial-arrow:hover {
+  border-color: #444;
+  color: #999;
+}
+
+.dial-container {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  cursor: grab;
+}
+
+.dial-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #1a1a1a;
+  border: 2px solid #2a2a2a;
+  overflow: hidden;
+}
+
+.dial-fill {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  mask: radial-gradient(circle 58px at 50% 50%, transparent 99%, black 100%);
+  -webkit-mask: radial-gradient(circle 58px at 50% 50%, transparent 99%, black 100%);
+}
+
+.dial-knob {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.02s linear;
+}
+
+.dial-pointer {
+  width: 3px;
+  height: 42px;
+  background: #666;
+  border-radius: 2px;
+  transform: translateY(-21px);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.dial-container:not(.disabled):hover .dial-pointer {
+  background: #888;
+}
+
+.dial-value {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ccc;
+  letter-spacing: 0.05em;
+}
+
+.dial-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #555;
+}
+
+/* Beat display */
+.beat-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 80px;
+}
+
+.beat-value {
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: #fff;
+}
+
+.beat-band {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #555;
+  min-height: 1.2em;
+}
+
+.beat-band.delta {
+  color: #6b7fd7;
+}
+.beat-band.theta {
+  color: #7dd3b0;
+}
+.beat-band.alpha {
+  color: #d4a853;
+}
+.beat-band.beta {
+  color: #e07a5f;
+}
+.beat-band.gamma {
+  color: #c77dff;
+}
+
+.beat-band.active {
+  font-weight: 500;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.controls-headphone-hint {
+  font-size: 0.7rem;
+  color: #555;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.controls-playing-no-timer {
+  font-size: 0.7rem;
+  color: #7dd3b0;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.control-btn {
+  min-width: 120px;
+  padding: 1rem 2.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid #333;
+  background: #141414;
+  color: #ccc;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.control-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-btn:hover {
+  border-color: #444;
+  color: #fff;
+  background: #1a1a1a;
+}
+
+.control-btn.start:hover {
+  border-color: #3a5f3a;
+  color: #7dd3b0;
+}
+
+.control-btn.stop:hover {
+  border-color: #5f3a3a;
+  color: #e07a5f;
+}
+
+/* Options row: carrier + pink noise */
+.options-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Carrier selector (slider) */
+.carrier-selector {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 200px;
+  justify-content: flex-start;
+}
+
+.carrier-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #444;
+}
+
+.carrier-slider {
+  width: 120px;
+  height: 6px;
+  accent-color: #555;
+  cursor: pointer;
+}
+
+.carrier-value {
+  font-size: 0.75rem;
+  color: #666;
+  min-width: 3.5rem;
+}
+
+.option-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #666;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  min-width: 120px;
+  justify-content: flex-start;
+}
+
+.option-toggle input {
+  accent-color: #555;
+  cursor: pointer;
+}
+
+/* Volume */
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 200px;
+  justify-content: flex-start;
+}
+
+.volume-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #444;
+}
+
+.volume-slider {
+  width: 88px;
+  height: 6px;
+  accent-color: #555;
+  cursor: pointer;
+}
+
+.volume-value {
+  font-size: 0.75rem;
+  color: #666;
+  min-width: 2.5rem;
+}
+
+/* Session timer */
+.session-timer {
+  width: 100%;
+  max-width: 480px;
+}
+
+.session-timer--disabled .session-timer-inputs {
+  opacity: 0.65;
+}
+
+.session-timer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.session-timer-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.session-timer-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #444;
+}
+
+.session-timer-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #666;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 0;
+  min-height: 44px;
+  box-sizing: border-box;
+}
+
+.session-timer-toggle input {
+  accent-color: #555;
+  cursor: pointer;
+}
+
+.session-timer-toggle input:disabled {
+  cursor: not-allowed;
+}
+
+.session-timer-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 0.75rem;
+}
+
+.session-timer-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.session-timer-field-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #555;
+}
+
+.session-timer-input {
+  width: 4rem;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.85rem;
+  text-align: center;
+  border: 1px solid #2a2a2a;
+  background: #141414;
+  color: #ccc;
+  font-family: inherit;
+}
+
+.session-timer-input:focus {
+  outline: none;
+  border-color: #444;
+}
+
+.session-timer-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.session-timer-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.9rem 1.25rem;
+  border: 1px solid #2a2a2a;
+  background: #141414;
+  border-radius: 2px;
+}
+
+.session-timer-phase {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.session-timer-phase--work {
+  color: #7dd3b0;
+}
+
+.session-timer-phase--break {
+  color: #d4a853;
+}
+
+.session-timer-phase--elapsed {
+  color: #888;
+}
+
+.session-timer-display--elapsed {
+  gap: 0.25rem;
+}
+
+.session-timer-complete {
+  padding: 0.75rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #7dd3b0;
+  background: #141414;
+  border: 1px solid #2a2a2a;
+  border-radius: 2px;
+  text-align: center;
+}
+
+.session-timer-cycle {
+  font-size: 0.7rem;
+  color: #666;
+  letter-spacing: 0.05em;
+}
+
+.session-timer-time {
+  font-size: 1.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Presets */
+.presets {
+  width: 100%;
+  max-width: 480px;
+}
+
+.presets-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #444;
+  margin-bottom: 0.75rem;
+}
+
+.presets-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.preset-btn {
+  padding: 0.6rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  border: 1px solid #2a2a2a;
+  background: #141414;
+  color: #888;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.preset-btn:hover {
+  border-color: #444;
+  color: #ccc;
+}
+
+.preset-btn.active {
+  border-color: #555;
+  color: #ccc;
+  background: #1a1a1a;
+}
+
+@media (max-width: 640px) {
+  .preset-btn {
+    min-height: 44px;
+    padding: 0.75rem 1rem;
+  }
+}
+
+.preset-name {
+  font-weight: 500;
+}
+
+.preset-desc {
+  font-size: 0.65rem;
+  color: #555;
+}
+
+/* Headphone warning */
+.headphone-warning {
+  font-size: 0.75rem;
+  color: #444;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+}
