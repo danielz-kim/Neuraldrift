@@ -96,26 +96,7 @@ function FrequencyDial({ label, value, onChange }: FrequencyDialProps) {
         >
           ▲
         </button>
-        <div
-          ref={dialRef}
-          className="dial-container"
-          onPointerDown={handlePointerDown}
-        >
-          <div className="dial-track">
-            <div
-              className="dial-fill"
-              style={{
-                background: `conic-gradient(from 135deg, #555 0deg, #555 ${sweep}deg, #2a2a2a ${sweep}deg, 270deg)`,
-              }}
-            />
-          </div>
-          <div
-            className="dial-knob"
-            style={{ transform: `rotate(${rotation}deg)` }}
-          >
-            <div className="dial-pointer" />
-          </div>
-        </div>
+        <div className="dial-value-large">{value} Hz</div>
         <button
           type="button"
           className="dial-arrow dial-arrow-down"
@@ -125,7 +106,6 @@ function FrequencyDial({ label, value, onChange }: FrequencyDialProps) {
           ▼
         </button>
       </div>
-      <div className="dial-value">{value} Hz</div>
       <div className="dial-label">{label}</div>
     </div>
   );

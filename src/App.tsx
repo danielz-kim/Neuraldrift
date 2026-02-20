@@ -6,6 +6,7 @@ import CarrierSelector, { type CarrierHz } from './components/CarrierSelector';
 import Controls from './components/Controls';
 import FrequencyDial from './components/FrequencyDial';
 import Presets from './components/Presets';
+import ScrollReveal from './components/ScrollReveal';
 import SessionTimer, { type SessionPhase } from './components/SessionTimer';
 
 const INITIAL_CARRIER: CarrierHz = 200;
@@ -252,21 +253,23 @@ function App() {
 
   return (
     <div className="app">
-      <header className="app-header">
-        <h1>Neuraldrift</h1>
-        <p className="app-description">Binaural soundwave generator and session timer.</p>
-        <p className="byline">
-          by <a href="https://danielzkim.com/" target="_blank" rel="noopener noreferrer">Daniel Kim</a>
-        </p>
-        <button
-          type="button"
-          className="science-toggle-btn"
-          onClick={() => setShowScience(true)}
-          aria-haspopup="dialog"
-        >
-          Read about the science!
-        </button>
-      </header>
+      <ScrollReveal as="section" className="app-section app-section-title">
+        <header className="app-header">
+          <h1>Neuraldrift</h1>
+          <p className="app-description">Binaural soundwave generator and session timer.</p>
+          <p className="byline">
+            by <a href="https://danielzkim.com/" target="_blank" rel="noopener noreferrer">Daniel Kim</a>
+          </p>
+          <button
+            type="button"
+            className="science-toggle-btn"
+            onClick={() => setShowScience(true)}
+            aria-haspopup="dialog"
+          >
+            Read about the science!
+          </button>
+        </header>
+      </ScrollReveal>
 
       {showScience && (
         <div
@@ -352,40 +355,42 @@ function App() {
         </div>
       )}
 
-      <main className="app-main">
-        <div className="dial-section">
-          <div className="dial-row">
-            <FrequencyDial
-              label="Left"
-              value={leftHz}
-              onChange={handleLeftChange}
-            />
-            <BeatDisplay beatHz={beatHz} band={band} isPlaying={isPlaying} />
-            <FrequencyDial
-              label="Right"
-              value={rightHz}
-              onChange={handleRightChange}
-            />
-          </div>
-          <Controls
-            isPlaying={isPlaying}
-            onToggle={handleToggle}
-            showPlayingNoTimer={
-              isPlaying &&
-              sessionPhase === 'idle' &&
-              !sessionTimerEnabled
-            }
+      <ScrollReveal as="section" className="app-section app-section-dial">
+        <div className="dial-row">
+          <FrequencyDial
+            label="Left"
+            value={leftHz}
+            onChange={handleLeftChange}
           />
-          <Presets
-            carrierHz={carrierHz}
-            leftHz={leftHz}
-            rightHz={rightHz}
-            onSelect={handlePresetSelect}
+          <BeatDisplay beatHz={beatHz} band={band} isPlaying={isPlaying} />
+          <FrequencyDial
+            label="Right"
+            value={rightHz}
+            onChange={handleRightChange}
           />
         </div>
+        <Controls
+          isPlaying={isPlaying}
+          onToggle={handleToggle}
+          showPlayingNoTimer={
+            isPlaying &&
+            sessionPhase === 'idle' &&
+            !sessionTimerEnabled
+          }
+        />
+      </ScrollReveal>
 
+      <ScrollReveal as="section" className="app-section app-section-preset">
+        <Presets
+          carrierHz={carrierHz}
+          leftHz={leftHz}
+          rightHz={rightHz}
+          onSelect={handlePresetSelect}
+        />
+      </ScrollReveal>
+
+      <ScrollReveal as="section" className="app-section app-section-options">
         <div className="options-row">
-          <CarrierSelector value={carrierHz} onChange={handleCarrierChange} />
           <label className="option-toggle">
             <input
               type="checkbox"
@@ -420,8 +425,11 @@ function App() {
             />
             <span className="volume-value">{volume}%</span>
           </div>
+          <CarrierSelector value={carrierHz} onChange={handleCarrierChange} />
         </div>
+      </ScrollReveal>
 
+      <ScrollReveal as="section" className="app-section app-section-timer">
         <SessionTimer
           phase={sessionPhase}
           totalCycles={cycles}
@@ -443,11 +451,13 @@ function App() {
           onCyclesChange={setCycles}
           disabled={sessionPhase !== 'idle'}
         />
-      </main>
+      </ScrollReveal>
 
-      <p className="headphone-warning">
-        Use headphones or earphones for best effect.
-      </p>
+      <ScrollReveal as="section" className="app-section app-section-footer">
+        <p className="headphone-warning">
+          Use headphones or earphones for best effect.
+        </p>
+      </ScrollReveal>
     </div>
   );
 }
