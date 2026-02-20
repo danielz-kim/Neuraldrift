@@ -1,9 +1,10 @@
+import { type ReactNode, type ElementType as ReactElementType } from 'react';
 import { useInView } from '../hooks/useInView';
 
 interface ScrollRevealProps {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
-  as?: keyof JSX.IntrinsicElements;
+  as?: ReactElementType;
 }
 
 export default function ScrollReveal({
